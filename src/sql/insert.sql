@@ -1,13 +1,13 @@
 INSERT INTO Customer (Name, Phone, email) VALUES
   ('Tim Cook', '8(926)111-11-11', 'cook@apple.com'),
-  ('Kenichiro Yoshida', '8(926)222-22-22', 'yoshida@sony.com')
-  ('Jensen Huang', '8(926)222-22-22', 'huang@nvidia.com'),
+  ('Kenichiro Yoshida', '8(926)222-22-22', 'yoshida@sony.com'),
+  ('Jensen Huang', '8(926)222-22-22', 'huang@nvidia.com');
 
 
 INSERT INTO Order_ (Customer_ID, Ship_date, Comment) VALUES
   (1, '2023-11-01', 'to tim cook'),
   (2, '2023-11-02', 'to Kenichiro Yoshida'),
-  (3, '2023-11-03', 'to Jensen Huang')
+  (3, '2023-11-03', 'to Jensen Huang');
   
 
 INSERT INTO Product (Name, Product_type) VALUES
@@ -39,9 +39,9 @@ INSERT INTO Warehouse_space(Stock_ID, Room, Shelf, Product_type, Empty_shelf) VA
 
 
 INSERT INTO Goods (Stock_ID, Order_number, Quantity) VALUES
-  (1, 20, 5),
-  (2, 19, 5),
-  (3, 18, 5);
+  (1, 1, 5),
+  (2, 2, 5),
+  (3, 3, 5);
 
 
 

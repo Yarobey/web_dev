@@ -64,7 +64,7 @@ CREATE TABLE Warehouse_space (
   Shelf         int,
   Product_type  text,
   Empty_shelf   bool
-):
+);
 
 DROP TABLE IF EXISTS Goods CASCADE;
 CREATE TABLE Goods ( 
