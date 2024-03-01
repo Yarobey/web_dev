@@ -5,8 +5,6 @@ CREATE TABLE Customer (
   Phone       char(20),
   email       text,
   Address     text,
-  City        text,
-  zip_code    char(10),
   Description text
 );
 
@@ -44,7 +42,8 @@ DROP TABLE IF EXISTS Supply CASCADE;
 CREATE TABLE Supply (
   Supply_ID SERIAL PRIMARY KEY,
   Supplier_ID   int REFERENCES Supplier(Supplier_ID) ON DELETE CASCADE,
-  Ship_date     date
+  Ship_date     date,
+  Comment       text
 );
 
 DROP TABLE IF EXISTS Stock CASCADE;
@@ -66,8 +65,8 @@ CREATE TABLE Warehouse_space (
   Empty_shelf   bool
 );
 
-DROP TABLE IF EXISTS Goods CASCADE;
-CREATE TABLE Goods ( 
+DROP TABLE IF EXISTS Items_ordered CASCADE;
+CREATE TABLE Items_ordered ( 
   Item_ID       SERIAL PRIMARY KEY,
   Stock_ID      int NOT NULL REFERENCES Stock(Stock_ID),
   Order_number  int NOT NULL REFERENCES Order_(Order_number) ON DELETE CASCADE,

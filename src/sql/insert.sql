@@ -38,7 +38,7 @@ INSERT INTO Warehouse_space(Stock_ID, Room, Shelf, Product_type, Empty_shelf) VA
   (3, 3, 3, 'toys', true);
 
 
-INSERT INTO Goods (Stock_ID, Order_number, Quantity) VALUES
+INSERT INTO Items_ordered (Stock_ID, Order_number, Quantity) VALUES
   (1, 1, 5),
   (2, 2, 5),
   (3, 3, 5);
