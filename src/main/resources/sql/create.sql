@@ -56,15 +56,15 @@ CREATE TABLE stock (
   stock_id    SERIAL PRIMARY KEY,
   product_id  int NOT NULL REFERENCES products(product_id) ON DELETE CASCADE,
   supply_id   int NOT NULL REFERENCES supplies(supply_id) ON DELETE CASCADE,
-  quantity    int CHECK(quantity >= 0)
+  quantity    int NOT NULL CHECK ( quantity >= 0 )
 );
 
 DROP TABLE IF EXISTS supply_products CASCADE;
 CREATE TABLE supply_products (
-  position_id   SERIAL PRIMARY KEY,
+  item_id   SERIAL PRIMARY KEY,
   supply_id     int NOT NULL REFERENCES supplies(supply_id) ON DELETE CASCADE,
   stock_id      int NOT NULL REFERENCES stock(stock_id),
-  quantity      int CHECK(quantity >= 0)
+  quantity      int NOT NULL CHECK ( quantity >= 0 )
 );
 
 DROP TABLE IF EXISTS warehouse_spaces CASCADE;
@@ -87,5 +87,5 @@ CREATE TABLE products_ordered (
   item_id       SERIAL PRIMARY KEY,
   stock_id      int NOT NULL REFERENCES stock(stock_id),
   order_number  int NOT NULL REFERENCES orders(order_number) ON DELETE CASCADE,
-  quantity      int CHECK(quantity > 0)
+  quantity      int NOT NULL CHECK ( quantity > 0 )
 );
