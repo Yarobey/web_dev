@@ -28,6 +28,10 @@ public class Orders implements CommonEntity<Long> {
     @Column(name = "comment")
     private String comment;
 
+    @Column(name = "customer_name")
+    @NonNull
+    private String customer_name;
+
     public Orders() {
     }
 }

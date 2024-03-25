@@ -28,6 +28,10 @@ public class Supplies implements CommonEntity<Long> {
     @Column(name = "comment")
     private String comment;
 
+    @Column(name = "supplier_name")
+    @NonNull
+    private String supplier_name;
+
     public Supplies() {
     }
 }
