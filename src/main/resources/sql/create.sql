@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS customers CASCADE;
 CREATE TABLE customers (
   customer_id SERIAL PRIMARY KEY,
   name        text NOT NULL,
-  phone       char(20),
+  phone       text,
   email       text,
   address     text,
   description text
@@ -37,7 +37,7 @@ DROP TABLE IF EXISTS suppliers CASCADE;
 CREATE TABLE suppliers (
   supplier_id SERIAL PRIMARY KEY,
   name        text NOT NULL,
-  phone       char(20),
+  phone       text,
   email       text,
   address     text,
   description text
