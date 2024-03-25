@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS orders CASCADE;
 CREATE TABLE orders (
   order_number  SERIAL PRIMARY KEY,
   customer_id   int NOT NULL REFERENCES customers(customer_id) ON DELETE CASCADE,
-  ship_date     DATE NOT NULL,
+  ship_date     DATE NOT NULL CHECK ( ship_date <= current_timestamp ),
   comment       text
 );
 
@@ -47,7 +47,7 @@ DROP TABLE IF EXISTS supplies CASCADE;
 CREATE TABLE supplies (
   supply_id     SERIAL PRIMARY KEY,
   supplier_id   int REFERENCES suppliers(supplier_id) ON DELETE CASCADE,
-  ship_date     date NOT NULL,
+  ship_date     date NOT NULL CHECK ( ship_date <= current_timestamp ),
   comment       text
 );
 
