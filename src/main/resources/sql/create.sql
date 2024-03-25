@@ -1,75 +1,91 @@
-DROP TABLE IF EXISTS Customer CASCADE;
-CREATE TABLE Customer (
-  Customer_ID SERIAL PRIMARY KEY,
-  Name        text NOT NULL,
-  Phone       char(20),
+DROP TABLE IF EXISTS customers CASCADE;
+CREATE TABLE customers (
+  customer_id SERIAL PRIMARY KEY,
+  name        text NOT NULL,
+  phone       char(20),
   email       text,
-  Address     text,
-  Description text
+  address     text,
+  description text
 );
 
-DROP TABLE IF EXISTS Order_ CASCADE;
-CREATE TABLE Order_ (
-  Order_number  SERIAL PRIMARY KEY,
-  Customer_ID   int NOT NULL REFERENCES Customer(Customer_ID) ON DELETE CASCADE,
-  Ship_date     DATE NOT NULL,
-  Comment       text
+DROP TABLE IF EXISTS orders CASCADE;
+CREATE TABLE orders (
+  order_number  SERIAL PRIMARY KEY,
+  customer_id   int NOT NULL REFERENCES customers(customer_id) ON DELETE CASCADE,
+  ship_date     DATE NOT NULL,
+  comment       text
 );
 
-DROP TABLE IF EXISTS Product CASCADE;
-CREATE TABLE Product (
-  Product_ID      SERIAL PRIMARY KEY,
-  Name            text NOT NULL,
-  Product_type    text,
-  size1           int,
-  size2           int,
-  size3           int,
-  Description     text,
-  Expiration_date date
+DROP TABLE IF EXISTS products CASCADE;
+CREATE TABLE products (
+  product_id      SERIAL PRIMARY KEY,
+  name            text NOT NULL,
+  product_type    text CHECK (
+         product_type = 'food'
+      OR product_type = 'electronics'
+      OR product_type = 'toys'
+      OR product_type = 'clothes'
+      ),
+  size1           int CHECK ( size1 > 0 ),
+  size2           int CHECK ( size2 > 0 ),
+  size3           int CHECK ( size3 > 0 ),
+  description     text,
+  expiration_date date
 );
 
-DROP TABLE IF EXISTS Supplier CASCADE;
-CREATE TABLE Supplier (
-  Supplier_ID SERIAL PRIMARY KEY,
-  Name        text NOT NULL,
-  Phone       char(20),
+DROP TABLE IF EXISTS suppliers CASCADE;
+CREATE TABLE suppliers (
+  supplier_id SERIAL PRIMARY KEY,
+  name        text NOT NULL,
+  phone       char(20),
   email       text,
-  Address     text,
-  Description text
+  address     text,
+  description text
 );
 
-DROP TABLE IF EXISTS Supply CASCADE;
-CREATE TABLE Supply (
-  Supply_ID SERIAL PRIMARY KEY,
-  Supplier_ID   int REFERENCES Supplier(Supplier_ID) ON DELETE CASCADE,
-  Ship_date     date,
-  Comment       text
+DROP TABLE IF EXISTS supplies CASCADE;
+CREATE TABLE supplies (
+  supply_id     SERIAL PRIMARY KEY,
+  supplier_id   int REFERENCES suppliers(supplier_id) ON DELETE CASCADE,
+  ship_date     date NOT NULL,
+  comment       text
 );
 
-DROP TABLE IF EXISTS Stock CASCADE;
-CREATE TABLE Stock (
-  Stock_ID    SERIAL PRIMARY KEY,
-  Product_ID  int NOT NULL REFERENCES Product(Product_ID) ON DELETE CASCADE,
-  Supply_ID   int NOT NULL REFERENCES Supply(Supply_ID) ON DELETE CASCADE,
-  Quantity    int CHECK(Quantity >= 0)
+DROP TABLE IF EXISTS stock CASCADE;
+CREATE TABLE stock (
+  stock_id    SERIAL PRIMARY KEY,
+  product_id  int NOT NULL REFERENCES products(product_id) ON DELETE CASCADE,
+  supply_id   int NOT NULL REFERENCES supplies(supply_id) ON DELETE CASCADE,
+  quantity    int CHECK(quantity >= 0)
 );
 
-
-DROP TABLE IF EXISTS Warehouse_space CASCADE;
-CREATE TABLE Warehouse_space (
-  Place_ID      SERIAL PRIMARY KEY,
-  Stock_ID      int NOT NULL REFERENCES Stock(Stock_ID),
-  Room          int,
-  Shelf         int,
-  Product_type  text,
-  Empty_shelf   bool
+DROP TABLE IF EXISTS supply_products CASCADE;
+CREATE TABLE supply_products (
+  position_id   SERIAL PRIMARY KEY,
+  supply_id     int NOT NULL REFERENCES supplies(supply_id) ON DELETE CASCADE,
+  stock_id      int NOT NULL REFERENCES stock(stock_id),
+  quantity      int CHECK(quantity >= 0)
 );
 
-DROP TABLE IF EXISTS Items_ordered CASCADE;
-CREATE TABLE Items_ordered ( 
-  Item_ID       SERIAL PRIMARY KEY,
-  Stock_ID      int NOT NULL REFERENCES Stock(Stock_ID),
-  Order_number  int NOT NULL REFERENCES Order_(Order_number) ON DELETE CASCADE,
-  Quantity      int CHECK(Quantity > 0)
+DROP TABLE IF EXISTS warehouse_spaces CASCADE;
+CREATE TABLE warehouse_spaces (
+  place_id      SERIAL PRIMARY KEY,
+  stock_id      int NOT NULL REFERENCES stock(stock_id) ON DELETE SET NULL,
+  room          int,
+  shelf         int,
+  product_type  text CHECK (
+         product_type = 'food'
+      OR product_type = 'electronics'
+      OR product_type = 'toys'
+      OR product_type = 'clothes'
+      ),
+  empty_space   bool
 );
 
+DROP TABLE IF EXISTS products_ordered CASCADE;
+CREATE TABLE products_ordered (
+  item_id       SERIAL PRIMARY KEY,
+  stock_id      int NOT NULL REFERENCES stock(stock_id),
+  order_number  int NOT NULL REFERENCES orders(order_number) ON DELETE CASCADE,
+  quantity      int CHECK(quantity > 0)
+);
