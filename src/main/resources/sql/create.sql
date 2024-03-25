@@ -30,7 +30,7 @@ CREATE TABLE products (
   size2           int CHECK (size2 > 0),
   size3           int CHECK (size3 > 0),
   description     text,
-  expiration_date date
+  expiration_date date CHECK (expiration_date >= current_timestamp)
 );
 
 DROP TABLE IF EXISTS suppliers CASCADE;

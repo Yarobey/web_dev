@@ -25,7 +25,7 @@ public class Warehouse_spaces implements CommonEntity<Long> {
     @NonNull
     private Long room;
 
-    @Column(nullable = false, name = "shelf_id")
+    @Column(nullable = false, name = "shelf")
     @NonNull
     private Long shelf;
 

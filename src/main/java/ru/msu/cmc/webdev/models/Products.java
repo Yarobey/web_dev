@@ -37,7 +37,7 @@ public class Products implements CommonEntity<Long> {
     private String description;
 
     @Column(name = "expiration_date")
-    private Long expiration_date;
+    private java.sql.Date expiration_date;
 
     public Products() {
     }
