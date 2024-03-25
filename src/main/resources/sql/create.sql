@@ -71,8 +71,8 @@ DROP TABLE IF EXISTS warehouse_spaces CASCADE;
 CREATE TABLE warehouse_spaces (
   place_id      SERIAL PRIMARY KEY,
   stock_id      int NOT NULL REFERENCES stock(stock_id) ON DELETE SET NULL,
-  room          int,
-  shelf         int,
+  room          int NOT NULL CHECK (room >= 0 AND room <= 512),
+  shelf         int NOT NULL CHECK (shelf >= 0 AND shelf <= 64),
   product_type  text CHECK (
          product_type = 'food'
       OR product_type = 'electronics'
