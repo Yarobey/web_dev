@@ -22,9 +22,9 @@ public class Supply_products implements CommonEntity<Long> {
     private Supplies supply;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "stock_id")
+    @JoinColumn(name = "product_id")
     @ToString.Exclude
-    private Stock stock;
+    private Products product;
 
     @Column(nullable = false, name = "quantity")
     @NonNull

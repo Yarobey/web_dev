@@ -17,14 +17,14 @@ public class Products_ordered implements CommonEntity<Long> {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "stock_id")
-    @ToString.Exclude
-    private Stock stock;
-
-    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "order_number")
     @ToString.Exclude
     private Orders order;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_id")
+    @ToString.Exclude
+    private Products product;
 
     @Column(nullable = false, name = "quantity")
     @NonNull

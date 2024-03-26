@@ -17,9 +17,9 @@ public class Warehouse_spaces implements CommonEntity<Long> {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "stock_id")
+    @JoinColumn(name = "product_id")
     @ToString.Exclude
-    private Stock stock;
+    private Products product;
 
     @Column(nullable = false, name = "room")
     @NonNull

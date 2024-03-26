@@ -33,6 +33,9 @@ public class Products implements CommonEntity<Long> {
     @Column(name = "size3")
     private Long address;
 
+    @Column(name = "quantity")
+    private Long quantity;
+
     @Column(name = "description")
     private String description;
 
