@@ -16,7 +16,7 @@ public class CustomersDAO_Implementation extends CommonDAOImplementation<Custome
     }
 
     @Override
-    public List<Customers> getCustomers() {
+    public List<Customers> getAllCustomers() {
         try (Session session = sessionFactory.openSession()) {
             Query<Customers> query = session.createQuery("FROM Customers", Customers.class);
             return query.getResultList().size() == 0 ? null : query.getResultList();
@@ -24,7 +24,7 @@ public class CustomersDAO_Implementation extends CommonDAOImplementation<Custome
     }
 
     @Override
-    public List<Customers> getCustomersByName(String CustomerName) {
+    public List<Customers> getAllCustomersByName(String CustomerName) {
         try (Session session = sessionFactory.openSession()) {
             Query<Customers> query = session.createQuery("FROM Customers WHERE name LIKE :gotName", Customers.class)
                     .setParameter("gotName", likeExpr(CustomerName));
@@ -53,7 +53,7 @@ public class CustomersDAO_Implementation extends CommonDAOImplementation<Custome
     }
 
     @Override
-    public List<Customers> getCustomersSortedByOrderYearsASC(String CustomerNames) {
+    public List<Customers> getCustomersSortedByOrderPerYearASC(String CustomerNames) {
         try (Session session = sessionFactory.openSession()) {
             Query<Customers> query = session.createQuery("FROM Customers WHERE name LIKE :gotName " +
                             "ORDER BY count_customers_orders_by_years(id) ASC", Customers.class)
@@ -63,7 +63,7 @@ public class CustomersDAO_Implementation extends CommonDAOImplementation<Custome
     }
 
     @Override
-    public List<Customers> getCustomersSortedByOrderYearsDESC(String CustomerNames) {
+    public List<Customers> getCustomersSortedByOrderPerYearDESC(String CustomerNames) {
         try (Session session = sessionFactory.openSession()) {
             Query<Customers> query = session.createQuery("FROM Customers WHERE name LIKE :gotName " +
                             "ORDER BY count_customers_orders_by_years(id) DESC", Customers.class)
@@ -94,7 +94,7 @@ public class CustomersDAO_Implementation extends CommonDAOImplementation<Custome
 
     @Override
     public Customers getCustomerByName(String CustomerName) {
-        List<Customers> candidates = this.getCustomersByName(CustomerName);
+        List<Customers> candidates = this.getAllCustomersByName(CustomerName);
         return candidates == null ? null :
                 candidates.size() == 1 ? candidates.get(0) : null;
     }
