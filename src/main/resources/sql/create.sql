@@ -30,6 +30,7 @@ CREATE TABLE products (
   size1           int CHECK (size1 > 0),
   size2           int CHECK (size2 > 0),
   size3           int CHECK (size3 > 0),
+  quantity        int NOT NULL CHECK (quantity >= 0),
   description     text,
   expiration_date date CHECK (expiration_date >= current_timestamp)
 );
@@ -53,26 +54,19 @@ CREATE TABLE supplies (
   supplier_name text
 );
 
-DROP TABLE IF EXISTS stock CASCADE;
-CREATE TABLE stock (
-  stock_id    SERIAL PRIMARY KEY,
-  product_id  int NOT NULL REFERENCES products(product_id) ON DELETE CASCADE,
-  supply_id   int NOT NULL REFERENCES supplies(supply_id) ON DELETE CASCADE,
-  quantity    int NOT NULL CHECK (quantity >= 0)
-);
 
 DROP TABLE IF EXISTS supply_products CASCADE;
 CREATE TABLE supply_products (
   item_id   SERIAL PRIMARY KEY,
   supply_id     int NOT NULL REFERENCES supplies(supply_id) ON DELETE CASCADE,
-  stock_id      int NOT NULL REFERENCES stock(stock_id),
+  product_id      int NOT NULL REFERENCES products(product_id),
   quantity      int NOT NULL CHECK (quantity >= 0)
 );
 
 DROP TABLE IF EXISTS warehouse_spaces CASCADE;
 CREATE TABLE warehouse_spaces (
   place_id      SERIAL PRIMARY KEY,
-  stock_id      int NOT NULL REFERENCES stock(stock_id) ON DELETE SET NULL,
+  product_id      int NOT NULL REFERENCES products(product_id) ON DELETE SET NULL,
   room          int NOT NULL CHECK (room >= 0 AND room <= 512),
   shelf         int NOT NULL CHECK (shelf >= 0 AND shelf <= 64),
   product_type  text CHECK (
@@ -87,7 +81,7 @@ CREATE TABLE warehouse_spaces (
 DROP TABLE IF EXISTS products_ordered CASCADE;
 CREATE TABLE products_ordered (
   item_id       SERIAL PRIMARY KEY,
-  stock_id      int NOT NULL REFERENCES stock(stock_id),
+  product_id    int NOT NULL REFERENCES products(product_id),
   order_number  int NOT NULL REFERENCES orders(order_number) ON DELETE CASCADE,
   quantity      int NOT NULL CHECK (quantity > 0)
 );
