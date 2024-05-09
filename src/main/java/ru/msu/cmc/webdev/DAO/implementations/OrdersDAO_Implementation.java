@@ -36,6 +36,16 @@ public class OrdersDAO_Implementation extends CommonDAOImplementation<Orders, Lo
     }
 
     @Override
+    public List<Orders> getAllOrdersByCustomerLimit5(String customer) {
+        try (Session session = sessionFactory.openSession()) {
+            Query<Orders> query = session.createQuery("FROM Orders " +
+                            "WHERE customer_name LIKE :name LIMIT 5", Orders.class)
+                    .setParameter("name", customer);
+            return query.getResultList().size() == 0 ? null : query.getResultList();
+        }
+    }
+
+    @Override
     public List<Orders> getAllOrdersByPeriod(Date start, Date end) {
         try (Session session = sessionFactory.openSession()) {
             Query<Orders> query = session.createQuery("FROM Orders " +

@@ -9,6 +9,8 @@ public interface OrdersDAO extends CommonDAO<Orders, Long> {
 
     List<Orders> getAllOrdersByCustomer(String id);
 
+    List<Orders> getAllOrdersByCustomerLimit5(String id);
+
     List<Orders> getAllOrdersByPeriod(java.util.Date start, java.util.Date end);
 
     List<Orders> getOrdersSortedByPeriodASC(java.util.Date start, java.util.Date end);
