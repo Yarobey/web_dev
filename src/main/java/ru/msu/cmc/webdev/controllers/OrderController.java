@@ -35,7 +35,7 @@ public class OrderController {
 
     @GetMapping("/orders")
     public String ordersListPage(Model model) {
-        List<Orders> orders = (List<Orders>) ordersDAO.getAll();
+        List<Orders> orders = (List<Orders>) ordersDAO.getAllOrders();
         model.addAttribute("orders", orders);
         model.addAttribute("orderService", ordersDAO);
         return "orders";

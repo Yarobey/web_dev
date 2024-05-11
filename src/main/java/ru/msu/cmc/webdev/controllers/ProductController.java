@@ -27,7 +27,7 @@ public class ProductController {
 
     @GetMapping("/products")
     public String productsListPage(Model model) {
-        List<Products> products = (List<Products>) productsDAO.getAll();
+        List<Products> products = (List<Products>) productsDAO.getAllProducts();
         model.addAttribute("products", products);
         model.addAttribute("productService", productsDAO);
         return "products";
