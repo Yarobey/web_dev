@@ -13,9 +13,9 @@ public interface SuppliersDAO extends CommonDAO<Suppliers, Long> {
 
     List<Suppliers> getSuppliersSortedByNameDESC(String SupplierName);
 
-    List<Suppliers> getSuppliersSortedBySupplisPerYearASC(String SupplierName);
+    List<Suppliers> getSuppliersSortedBySuppliesPerYearASC(String SupplierName);
 
-    List<Suppliers> getSuppliersSortedBySupplisPerYearDESC(String SupplierName);
+    List<Suppliers> getSuppliersSortedBySuppliesPerYearDESC(String SupplierName);
 
     List<Suppliers> getSuppliersSortedByNumberOfSuppliesASC(String SupplierName);
 

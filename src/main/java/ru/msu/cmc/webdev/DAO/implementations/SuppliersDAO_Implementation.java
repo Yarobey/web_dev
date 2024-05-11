@@ -53,7 +53,7 @@ public class SuppliersDAO_Implementation extends CommonDAOImplementation<Supplie
     }
 
     @Override
-    public List<Suppliers> getSuppliersSortedBySupplisPerYearASC(String SupplierName) {
+    public List<Suppliers> getSuppliersSortedBySuppliesPerYearASC(String SupplierName) {
         try (Session session = sessionFactory.openSession()) {
             Query<Suppliers> query = session.createQuery("FROM Suppliers WHERE name LIKE :gotName " +
                             "ORDER BY count_suppliers_supplies_by_years(id) ASC", Suppliers.class)
@@ -63,7 +63,7 @@ public class SuppliersDAO_Implementation extends CommonDAOImplementation<Supplie
     }
 
     @Override
-    public List<Suppliers> getSuppliersSortedBySupplisPerYearDESC(String SupplierName) {
+    public List<Suppliers> getSuppliersSortedBySuppliesPerYearDESC(String SupplierName) {
         try (Session session = sessionFactory.openSession()) {
             Query<Suppliers> query = session.createQuery("FROM Suppliers WHERE name LIKE :gotName " +
                             "ORDER BY count_suppliers_supplies_by_years(id) DESC", Suppliers.class)
