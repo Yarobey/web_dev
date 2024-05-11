@@ -2,6 +2,8 @@ package ru.msu.cmc.webdev.models;
 
 import lombok.*;
 import jakarta.persistence.*;
+import java.util.Date;
+
 
 @Entity
 @Table(name = "orders")
@@ -23,7 +25,7 @@ public class Orders implements CommonEntity<Long> {
 
     @Column(nullable = false, name = "ship_date")
     @NonNull
-    private java.sql.Date ship_date;
+    private java.util.Date ship_date;
 
     @Column(name = "comment")
     private String comment;

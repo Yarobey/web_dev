@@ -3,6 +3,7 @@ package ru.msu.cmc.webdev.models;
 import lombok.*;
 import jakarta.persistence.*;
 import java.util.Objects;
+import java.util.Date;
 
 @Entity
 @Table(name = "products")
@@ -31,7 +32,7 @@ public class Products implements CommonEntity<Long> {
     private Long size2;
 
     @Column(name = "size3")
-    private Long address;
+    private Long size3;
 
     @Column(name = "quantity")
     private Long quantity;
@@ -40,7 +41,7 @@ public class Products implements CommonEntity<Long> {
     private String description;
 
     @Column(name = "expiration_date")
-    private java.sql.Date expiration_date;
+    private java.util.Date expiration_date;
 
     public Products() {
     }
