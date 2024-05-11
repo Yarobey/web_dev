@@ -9,6 +9,8 @@ public interface SuppliesDAO extends CommonDAO<Supplies, Long> {
 
     List<Supplies> getAllSuppliesBySupplier(String name);
 
+    List<Supplies> getAllSuppliesBySupplierLimit5(String name);
+
     List<Supplies> getAllSuppliesByPeriod(java.util.Date start, java.util.Date end);
 
     List<Supplies> getSuppliesSortedByPeriodASC(java.util.Date start, java.util.Date end);

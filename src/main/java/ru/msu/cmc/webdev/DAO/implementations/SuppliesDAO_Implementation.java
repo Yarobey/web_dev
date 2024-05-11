@@ -35,6 +35,16 @@ public class SuppliesDAO_Implementation extends CommonDAOImplementation<Supplies
         }
     }
 
+    @Override
+    public List<Supplies> getAllSuppliesBySupplierLimit5(String supplier) {
+        try (Session session = sessionFactory.openSession()) {
+            Query<Supplies> query = session.createQuery("FROM Supplies " +
+                            "WHERE supplier_name LIKE :name ORDER BY ship_date desc", Supplies.class)
+                    .setParameter("name", likeExpr(supplier));
+            return query.getResultList().size() == 0 ? null : ((query.getResultList().size() < 5) ? query.getResultList() : query.getResultList().subList(0, 5));
+        }
+    }
+
 
     @Override
     public List<Supplies> getAllSuppliesByPeriod(Date start, Date end) {
@@ -105,5 +115,7 @@ public class SuppliesDAO_Implementation extends CommonDAOImplementation<Supplies
             return query.getResultList().size() == 0 ? null : query.getResultList();
         }
     }
-
+    private String likeExpr(String param) {
+        return "%" + param + "%";
+    }
 }
