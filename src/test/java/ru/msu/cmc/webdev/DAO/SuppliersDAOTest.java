@@ -58,12 +58,12 @@ public class SuppliersDAOTest {
         assertEquals(2, sorted_incorp.get(0).getId());
         assertEquals(1, sorted_incorp.get(1).getId());
         
-        List<Suppliers> sorted_incorp_by_shipdate = suppliersDAO.getSuppliersSortedBySupplisPerYearASC("Inc");
+        List<Suppliers> sorted_incorp_by_shipdate = suppliersDAO.getSuppliersSortedBySuppliesPerYearASC("Inc");
         assertEquals(2, sorted_incorp_by_shipdate.size());
         assertEquals(1, sorted_incorp_by_shipdate.get(0).getId());
         assertEquals(2, sorted_incorp_by_shipdate.get(1).getId());
         
-        sorted_incorp_by_shipdate = suppliersDAO.getSuppliersSortedBySupplisPerYearDESC("Inc");
+        sorted_incorp_by_shipdate = suppliersDAO.getSuppliersSortedBySuppliesPerYearDESC("Inc");
         assertEquals(2, sorted_incorp_by_shipdate.size());
         assertEquals(1, sorted_incorp_by_shipdate.get(0).getId());
         assertEquals(2, sorted_incorp_by_shipdate.get(1).getId());
