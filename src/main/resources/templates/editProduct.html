@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Редактировать товар</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .indent {
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="general :: page-header"> </div>
+
+<div class="indent">
+    <form method="post" action="/saveProduct">
+        <label for="productId">ID:               </label>
+        <input type="text" id="productId" name="productId" required th:value="${product.getId()}"><br><br>
+
+        <label for="productName">Имя:               </label>
+        <input type="text" id="productName" name="productName" required th:value="${product.getName()}"><br><br>
+
+        <label for="productDescription">Описание:          </label>
+        <input type="text" id="productDescription" name="productDescription"  th:value="${product.getDescription()}"><br><br>
+
+        <label for="productType">Тип:           </label>
+        <input type="text" id="productType" name="productType" required th:value="${product.getType()}"><br><br>
+
+        <label for="productSize1">Size1: </label>
+        <input type="text" id="productSize1" name="productSize1"  th:value="${product.getSize1()}"><br><br>
+
+        <label for="productSize2">Size2: </label>
+        <input type="text" id="productSize2" name="productSize2"  th:value="${product.getSize2()}"><br><br>
+
+        <label for="productSize3">Size3: </label>
+        <input type="text" id="productSize3" name="productSize3"  th:value="${product.getSize3()}"><br><br>
+
+        <label for="productQuantity">Кол-во:             </label>
+        <input type="text" id="productQuantity" name="productQuantity"  th:value="${product.getQuantity()}"><br><br>
+
+        <label for="productExpirationDate">Срок годности:               </label>
+        <input type="date" id="productExpirationDate" name="productExpirationDate" th:value="${product.getExpiration_date()}"><br><br>
+
+<!--        <p th:if="${order.getShip_date() != null}" th:text="'Планируемая ранее дата: ' + ${order.getShip_date()}"></p><br>-->
+
+        <input id="submitButton" type="submit" value="Сохранить" class="btn btn-primary">
+    </form>
+</div>
+
+<div th:replace="general :: site-footer"></div>
+<div th:replace="general :: site-script"></div>
+
+</body>
+</html>

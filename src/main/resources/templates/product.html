@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .indent {
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 20px;
+        }
+    </style>
+    <title>Информация о товаре</title>
+</head>
+
+<body>
+<div th:replace="general :: page-header"> </div>
+
+<div class="indent">
+    <div id="productInfo">
+        <h4 th:text="${product.getName()}"></h4>
+        <p th:if="${product.getDescription() != null}" th:text="'Описание: ' + ${product.getDescription()}"></p>
+        <p th:if="${product.getType() != null && product.getType().length() != 0}" th:text="'Тип: ' + ${product.getType()}"></p>
+        <p th:if="${product.getQuantity() != null && product.getQuantity() != 0}" th:text="'Кол-во: ' + ${product.getQuantity()}"></p>
+        <p th:if="${product.getSize1() != null && product.getSize1() != 0}" th:text="'Длина: ' + ${product.getSize1()}"></p>
+        <p th:if="${product.getSize2() != null && product.getSize2() != 0}" th:text="'Ширина: ' + ${product.getSize2()}"></p>
+        <p th:if="${product.getSize3() != null && product.getSize3() != 0}" th:text="'Высота: ' + ${product.getSize3()}"></p>
+        <p th:if="${product.getExpiration_date() != null && product.getExpiration_date() != 0}" th:text="'Срок хранения: ' + ${product.getExpiration_date()}"></p>
+        <p> Места на складе:&nbsp <span th:if="${wcService.getProductPlaces(product) == null}">нет</span>
+            <a th:each="place, iter: ${wcService.getProductPlaces(product)}" th:href="'/place?placeId=' + ${place.getId()}">
+                <span th:text="${place.getRoom()}  + '-' + ${place.getShelf()} + ${!iter.last ? ',' : ''}"></span>
+            </a>
+        </p>
+
+    </div>
+
+    <!--edit delete order button group-->
+    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group mr-2" role="group" aria-label="First group">
+            <form style="margin-right: 30px" method="get" action="/editProduct">
+                <input type="hidden" name="productId" th:value="${product.getId()}"/>
+                <button id="editButton" type="submit" class="btn btn-secondary">Редактировать информацию о товаре</button>
+            </form>
+            <form method="post" action="/removeProduct">
+                <input type="hidden" name="productId" th:value="${product.getId()}"/>
+                <button id="deleteButton" type="submit" class="btn btn-secondary">Удалить товар из базы</button>
+            </form>
+        </div>
+    </div>
+    <!--end of button group-->
+
+</div>
+
+<div th:replace="general :: site-footer"></div>
+<div th:replace="general :: site-script"></div>
+
+</body>
+</html>

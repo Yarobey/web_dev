@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Заказы</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .indent {
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="general :: page-header"> </div>
+
+<div class="indent">
+    <form method="get" action="/editOrder">
+        <button id="addOrderButton" type="submit" class="btn btn-primary">Оформить заказ</button>
+    </form>
+
+    <br>
+
+    <form method="get" action="/searchOrder">
+        <div class="form-row">
+            <div class="col">
+                <input type="date" class="form-control" required placeholder="Начало" name="date1">
+            </div>
+            <div class="col">
+                <input type="date" class="form-control" required placeholder="Конец" name="date2">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Сортировка" name="sortingId" list="sorts" />
+                <datalist id="sorts">
+                    <option value="Дата" />
+                    <option value="Количество товаров" />
+                    <option value="Имя заказчика" />
+                </datalist>
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Порядок" name="asc" list="asc" />
+                <datalist id="asc">
+                    <option value="по возрастанию" />
+                    <option value="по убыванию" />
+                </datalist>
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-primary">Поиск</button>
+            </div>
+        </div>
+    </form>
+
+    <br>
+
+    <table class="table table-bordered table-warning">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Дата</th>
+            <th scope="col">Комментарий</th>
+            <th scope="col">Заказчик</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${orders.isEmpty()}">
+            <td colspan="3"> В базе пока нет ни одного заказа. <a href="/editOrder">Необходимо добавить</a></td>
+        </tr>
+        <tr th:each="order : ${orders}">
+            <td><a th:href="'/order?orderId=' + ${order.getId()}"><span
+                    th:text="${order.getShip_date()}"></span></a></td>
+            <td><span
+                    th:text="${order.getComment()}"></span></td>
+            <td><span
+                    th:text="${order.getCustomer_name()}"></span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:replace="general :: site-script"></div>
+
+</body>
+</html>

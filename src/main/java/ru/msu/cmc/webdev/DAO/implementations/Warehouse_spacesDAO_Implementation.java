@@ -20,7 +20,7 @@ public class Warehouse_spacesDAO_Implementation extends CommonDAOImplementation<
     public List<Warehouse_spaces> getNotEmptySpacesByType(String ptype) {
         try (Session session = sessionFactory.openSession()) {
             Query<Warehouse_spaces> query = session.createQuery("FROM Warehouse_spaces " +
-                            " WHERE ((empty_space = false) and (type Like :ptype))", Warehouse_spaces.class)
+                            " WHERE ((empty_space = false) and (ptype Like :ptype))", Warehouse_spaces.class)
                     .setParameter("ptype", likeExpr(ptype));
             return query.getResultList().size() == 0 ? null : query.getResultList();
         }

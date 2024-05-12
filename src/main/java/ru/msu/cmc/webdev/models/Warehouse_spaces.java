@@ -30,7 +30,7 @@ public class Warehouse_spaces implements CommonEntity<Long> {
     private Long shelf;
 
     @Column(name = "product_type")
-    private String type;
+    private String ptype;
 
     @Column(name = "empty_space")
     private boolean empty_space;

@@ -17,10 +17,10 @@ public class WarehouseController {
 
     @GetMapping("/wcMain")
     public String wcMainPage(Model model) {
-        model.addAttribute("toysNotFree", wcService.getNotEmptySpacesByType("toys"));
-        model.addAttribute("clothesNotFree", wcService.getNotEmptySpacesByType("clothes"));
-        model.addAttribute("foodNotFree", wcService.getNotEmptySpacesByType("food"));
-        model.addAttribute("electronicsNotFree", wcService.getNotEmptySpacesByType("electronics"));
+        model.addAttribute("toysNotFree", wcService.getNotEmptySpacesByType("toys") == null ? 40 : 40 - wcService.getNotEmptySpacesByType("toys").size());
+        model.addAttribute("clothesNotFree", wcService.getNotEmptySpacesByType("clothes") == null ? 40 : 40 - wcService.getNotEmptySpacesByType("clothes").size());
+        model.addAttribute("foodNotFree", wcService.getNotEmptySpacesByType("food") == null ? 40 : 40 - wcService.getNotEmptySpacesByType("food").size());
+        model.addAttribute("electronicsNotFree", wcService.getNotEmptySpacesByType("electronics") == null ? 40 : 40 - wcService.getNotEmptySpacesByType("electronics").size());
         model.addAttribute("wcService", wcService);
         return "wcMain";
     }
@@ -41,10 +41,11 @@ public class WarehouseController {
                              @RequestParam(name = "electronics", required = false) Long electronics,
                              Model model) {
 
-        if ((clothes <= 40 - wcService.getNotEmptySpacesByType("clothes").size()) &&
-                (toys <= 40 - wcService.getNotEmptySpacesByType("toys").size()) &&
-                (food <= 40 - wcService.getNotEmptySpacesByType("food").size()) &&
-                (electronics <= 40 - wcService.getNotEmptySpacesByType("electronics").size())) {
+//        return "wcSuccess";
+        if ((clothes <= (wcService.getNotEmptySpacesByType("clothes") == null ? 40 : 40 - wcService.getNotEmptySpacesByType("clothes").size())) &&
+                (toys <= (wcService.getNotEmptySpacesByType("toys") == null ? 40 : 40 - wcService.getNotEmptySpacesByType("toys").size())) &&
+                (food <= (wcService.getNotEmptySpacesByType("food") == null ? 40 : 40 - wcService.getNotEmptySpacesByType("food").size())) &&
+                (electronics <= (wcService.getNotEmptySpacesByType("electronics") == null ? 40 : 40 - wcService.getNotEmptySpacesByType("electronics").size()))) {
             return "wcSuccess";
         } else {
             return "wcFail";

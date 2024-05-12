@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Редактировать поставщика</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .indent {
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="general :: page-header"> </div>
+
+<div class="indent">
+    <form method="post" action="/saveSupplier">
+
+        <label for="supplierName">ID:               </label>
+        <input type="text" id="supplierId" name="supplierId" required th:value="${supplier.getId()}"><br><br>
+
+        <label for="supplierName">Имя:               </label>
+        <input type="text" id="supplierName" name="supplierName" required th:value="${supplier.getName()}"><br><br>
+
+        <label for="supplierDescription">Описание:          </label>
+        <input type="text" id="supplierDescription" name="supplierDescription" th:value="${supplier.getDescription()}"><br><br>
+
+        <label for="supplierPhone">Телефон:           </label>
+        <input type="text" id="supplierPhone" name="supplierPhone"  th:value="${supplier.getPhone()}"><br><br>
+
+        <label for="supplierEmail">Электронная почта: </label>
+        <input type="text" id="supplierEmail" name="supplierEmail"  th:value="${supplier.getEmail()}"><br><br>
+
+        <label for="supplierAddress">Адрес:             </label>
+        <input type="text" id="supplierAddress" name="supplierAddress"  th:value="${supplier.getAddress()}"><br><br>
+
+        <input id="submitButton" type="submit" value="Сохранить" class="btn btn-primary">
+    </form>
+</div>
+
+<div th:replace="general :: site-footer"></div>
+<div th:replace="general :: site-script"></div>
+
+</body>
+</html>
