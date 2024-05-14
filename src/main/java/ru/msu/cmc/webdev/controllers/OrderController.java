@@ -84,11 +84,12 @@ public class OrderController {
                                    @RequestParam(name = "orderComment", required = false) String info,
                                    @RequestParam(name = "orderCustomerName", required = true) String customerName,
                                    Model model) {
-        Orders order = ordersDAO.getById(orderId);
-        List<Orders> orders = ordersDAO.getAllOrders();
-        boolean changeIsSuccessful = false;
-
-        if (order != null) {
+        int num_orders = ordersDAO.getAllOrders().size();
+        Orders order = null;
+        if (orderId != 0 && orderId <= num_orders) {
+            order = ordersDAO.getById(orderId);
+        }
+        if (orderId != 0 && order != null) {
             order.setShip_date(date);
             if (info!= null) {
                 order.setComment(info);
@@ -101,7 +102,16 @@ public class OrderController {
             }
             ordersDAO.update(order);
         } else {
-            order = new Orders(orderId, customersDAO.getAllCustomersByName(customerName).get(0), date, info, customerName);
+            order = new Orders();
+            order.setId(orderId);
+            order.setCustomer(customersDAO.getAllCustomersByName(customerName).get(0));
+            order.setShip_date(date);
+            if (info != null) {
+                order.setComment(info);
+            }
+            if (customerName != null) {
+                order.setCustomer_name(customerName);
+            }
             ordersDAO.save(order);
         }
         return "index";

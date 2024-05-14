@@ -79,9 +79,9 @@ public class ProductController {
                                @RequestParam(name = "productDescription", required = false) String info,
                                @RequestParam(name = "productExpiration_date", required = false) Date expiration_date,
                                Model model) {
-        List<Products> products = productsDAO.getAllProducts();
+        int num_products = productsDAO.getAllProducts().size();
         Products product = null;
-        if (productId != 0) {
+        if (productId != 0 && productId <= num_products) {
             product = productsDAO.getById(productId);
         }
         if (productId != 0 && product != null) {
@@ -110,6 +110,7 @@ public class ProductController {
             productsDAO.update(product);
         } else {
             product = new Products();
+            product.setId(productId);
             product.setName(name);
             if (type!= null) {
                 product.setType(type);

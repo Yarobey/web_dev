@@ -75,10 +75,9 @@ public class CustomerController {
                                 @RequestParam(name = "customerAddress", required = false) String address,
                                 @RequestParam(name = "customerDescription", required = false) String info,
                                 Model model) {
-        List<Customers> customers = customersDAO.getAllCustomers();
-        boolean changeIsSuccessful = false;
+        int num_customers = customersDAO.getAllCustomers().size();
         Customers customer = null;
-        if (customerId != 0) {
+        if (customerId != 0 && customerId <= num_customers) {
             customer = customersDAO.getById(customerId);
         }
         if (customerId != 0 && customer != null) {
@@ -98,6 +97,7 @@ public class CustomerController {
             customersDAO.update(customer);
         } else {
             customer = new Customers();
+            customer.setId(customerId);
             customer.setName(name);
             if (phone!= null) {
                 customer.setPhone(phone);

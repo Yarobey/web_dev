@@ -84,11 +84,12 @@ public class SupplyController {
                                  @RequestParam(name = "supplyComment", required = false) String info,
                                  @RequestParam(name = "supplySupplierName", required = true) String supplierName,
                                  Model model) {
-        Supplies supply = suppliesDAO.getById(supplyId);
-        List<Supplies> supplies = suppliesDAO.getAllSupplies();
-        boolean changeIsSuccessful = false;
-
-        if (supply != null) {
+        int num_supplies = suppliesDAO.getAllSupplies().size();
+        Supplies supply = null;
+        if (supplyId != 0 && supplyId <= num_supplies){
+            supply = suppliesDAO.getById(supplyId);
+        }
+        if (supplyId != 0 && supply != null) {
             supply.setShip_date(date);
             if (info!= null) {
                 supply.setComment(info);
@@ -101,7 +102,16 @@ public class SupplyController {
             }
             suppliesDAO.update(supply);
         } else {
-            supply = new Supplies(supplyId, suppliersDAO.getAllSuppliersByName(supplierName).get(0), date, info, supplierName);
+            supply = new Supplies();
+            supply.setId(supplyId);
+            supply.setSupplier(suppliersDAO.getAllSuppliersByName(supplierName).get(0));
+            supply.setShip_date(date);
+            if (info != null) {
+                supply.setComment(info);
+            }
+            if (supplierName != null){
+                supply.setSupplier_name(supplierName);
+            }
             suppliesDAO.save(supply);
         }
         return "index";

@@ -75,9 +75,9 @@ public class SupplierController {
                                  @RequestParam(name = "supplierAddress", required = false) String address,
                                  @RequestParam(name = "supplierDescription", required = false) String info,
                                  Model model) {
-        List<Suppliers> suppliers = suppliersDAO.getAllSuppliers();
+        int num_suppliers = suppliersDAO.getAllSuppliers().size();
         Suppliers supplier = null;
-        if (supplierId != 0) {
+        if (supplierId != 0 && supplierId <= num_suppliers) {
             supplier = suppliersDAO.getById(supplierId);
         }
         if (supplierId != 0 && supplier != null) {
@@ -97,6 +97,7 @@ public class SupplierController {
             suppliersDAO.update(supplier);
         } else {
             supplier = new Suppliers();
+            supplier.setId(supplierId);
             supplier.setName(name);
             if (phone!= null) {
                 supplier.setPhone(phone);
