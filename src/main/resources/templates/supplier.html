@@ -27,7 +27,7 @@
 
         <p> Последние заказы:&nbsp <span th:if="${suppliesService.getAllSuppliesBySupplierLimit5(supplier.getName()) == null}">нет</span>
             <a th:each="supply, iter: ${suppliesService.getAllSuppliesBySupplierLimit5(supplier.getName())}" th:href="'/supply?supplyId=' + ${supply.getId()}">
-                <span th:text="${supply.getDate_time()} + ${!iter.last ? ',' : ''}"></span>
+                <span th:text="${supply.getShip_date()} + ${!iter.last ? ',' : ''}"></span>
             </a>
         </p>
 
