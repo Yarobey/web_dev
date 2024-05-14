@@ -35,4 +35,40 @@ public class Supplies implements CommonEntity<Long> {
 
     public Supplies() {
     }
+
+    public Suppliers getSupplier(){
+        return supplier;
+    }
+
+    public Date getShip_date(){
+        return ship_date;
+    }
+
+    public String getComment(){
+        return comment;
+    }
+
+    public String getSupplier_name(){
+        return supplier_name;
+    }
+
+    public void setId(Long id){
+        this.id = id;
+    }
+
+    public void setSupplier(Suppliers supplier){
+        this.supplier = supplier;
+    }
+
+    public void setShip_date(Date date){
+        this.ship_date = date;
+    }
+
+    public void setComment(String comment){
+        this.comment = comment;
+    }
+
+    public void setSupplier_name(String name){
+        this.supplier_name = name;
+    }
 }

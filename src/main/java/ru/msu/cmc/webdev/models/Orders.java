@@ -36,4 +36,40 @@ public class Orders implements CommonEntity<Long> {
 
     public Orders() {
     }
+
+    public Customers getCustomer(){
+        return customer;
+    }
+
+    public Date getShip_date(){
+        return ship_date;
+    }
+
+    public String getComment(){
+        return comment;
+    }
+
+    public String getCustomer_name(){
+        return customer_name;
+    }
+
+    public void setId(Long id){
+        this.id = id;
+    }
+
+    public void setCustomer(Customers customer){
+        this.customer = customer;
+    }
+
+    public void setShip_date(Date date){
+        this.ship_date = date;
+    }
+
+    public void setComment(String comment){
+        this.comment = comment;
+    }
+
+    public void setCustomer_name(String name){
+        this.customer_name = name;
+    }
 }
